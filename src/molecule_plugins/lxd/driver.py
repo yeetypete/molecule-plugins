@@ -18,7 +18,6 @@
 #  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 import os
-from typing import Dict
 
 from molecule import logger
 from molecule.api import Driver
@@ -30,7 +29,7 @@ class LXD(Driver):
     """LXD molecule driver plugin."""
 
     def __init__(self, config=None):
-        super(LXD, self).__init__(config)
+        super().__init__(config)
         self._name = "lxd"
 
     @property
@@ -63,7 +62,7 @@ class LXD(Driver):
         }
 
     def sanity_checks(self):
-        # TODO: Implement sanity checks
+        # TODO(yeetypete): Implement sanity checks
         pass
 
     def template_dir(self):
@@ -73,5 +72,5 @@ class LXD(Driver):
         return os.path.join(os.path.dirname(__file__), "modules")
 
     @property
-    def required_collections(self) -> Dict[str, str]:
+    def required_collections(self) -> dict[str, str]:
         return {"community.general": "4.1.0"}
