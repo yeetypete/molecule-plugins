@@ -1,5 +1,4 @@
 ---
-
 - name: Create
   hosts: localhost
   connection: local
@@ -16,7 +15,7 @@
 
   tasks:
     - name: Print warning for using deprecated var 'alias'
-      debug:
+      ansible.builtin.debug:
         msg: "Using 'alias' for instance {{ item.name }} is deprecated. Use 'source_alias' instead."
       when: item.alias is defined
       loop: "{{ molecule_yml.platforms }}"
@@ -34,7 +33,11 @@
             {
               'type': item.source_type | default(default_source.type),
               'mode': item.source_mode | default(default_source.mode),
-              'server': item.source_server | default('https://cloud-images.ubuntu.com/releases' if item.type | default('container') == 'virtual-machine' else  default_source.server),
+              'server': item.source_server | default(
+                'https://cloud-images.ubuntu.com/releases'
+                if item.type | default('container') == 'virtual-machine'
+                else default_source.server
+              ),
               'alias': item.alias | default(item.source_alias | default(default_source.alias)),
               'protocol': item.source_protocol | default(default_source.protocol)
             } | combine(item.source | default({}))
