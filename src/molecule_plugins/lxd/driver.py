@@ -57,7 +57,7 @@ class LXD(Driver):
 
     def ansible_connection_options(self, instance_name):
         return {
-            "ansible_connection": ["community.general.lxd", "community.general.incus"],
+            "ansible_connection": "community.general.lxd",
             "ansible_incus_remote": os.getenv("INCUS_REMOTE", "local"),
             "ansible_lxd_remote": os.getenv("LXC_REMOTE", "local"),
         }
